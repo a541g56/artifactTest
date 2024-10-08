@@ -1,0 +1,17 @@
+name: Generate Artifact
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Create a text file
+      run: echo "Hello, this is a sample artifact." > artifact.txt
+
+    - name: Upload artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: my-artifact
+        path: artifact.txt
