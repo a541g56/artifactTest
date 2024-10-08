@@ -5,34 +5,12 @@ on: [push]
 jobs:
   test:
     runs-on: ubuntu-latest
-
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
+      - name: Check out repository code
+        uses: actions/checkout@v2
 
-    - name: Set up Python
-      uses: actions/setup-python@v2
-      with:
-        python-version: '3.x'
+      - name: Run tests
+        run: npm test
 
-    - name: Run test script
-      id: test
-      run: |
-        # Simulate running tests and generating results
-        total_tests=10
-        passed_tests=8
-        failed_tests=2
-
-        echo "Total Tests: $total_tests"
-        echo "Passed Tests: $passed_tests"
-        echo "Failed Tests: $failed_tests"
-
-        echo "##[set-env name=TOTAL_TESTS]$total_tests"
-        echo "##[set-env name=PASSED_TESTS]$passed_tests"
-        echo "##[set-env name=FAILED_TESTS]$failed_tests"
-
-    - name: Display Test Results
-      run: |
-        echo "Total Tests: $TOTAL_TESTS"
-        echo "Passed Tests: $PASSED_TESTS"
-        echo "Failed Tests: $FAILED_TESTS"
+      - name: Generate test report
+        run: npm run test:report
