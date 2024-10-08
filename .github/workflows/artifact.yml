@@ -1,21 +1,38 @@
-name: Generate Artifact
+name: Show Test Results in Jobs List
 
 on: [push]
 
 jobs:
-  build:
+  test:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Create a text file
-      run: echo "Hello, this is a sample artifact." > artifact.txt
-    - name: Run test script
-      
-      run: |
-        python pythonTest.py  # 这里假设你有一个名为 simulate_test_results_job.py 的 Python 脚本
+    - name: Checkout code
+      uses: actions/checkout@v2
 
-    - name: Upload artifact
-      uses: actions/upload-artifact@v4
+    - name: Set up Python
+      uses: actions/setup-python@v2
       with:
-        name: my-artifact
-        path: artifact.txt
+        python-version: '3.x'
+
+    - name: Run test script
+      id: test
+      run: |
+        # Simulate running tests and generating results
+        total_tests=10
+        passed_tests=8
+        failed_tests=2
+
+        echo "Total Tests: $total_tests"
+        echo "Passed Tests: $passed_tests"
+        echo "Failed Tests: $failed_tests"
+
+        echo "##[set-env name=TOTAL_TESTS]$total_tests"
+        echo "##[set-env name=PASSED_TESTS]$passed_tests"
+        echo "##[set-env name=FAILED_TESTS]$failed_tests"
+
+    - name: Display Test Results
+      run: |
+        echo "Total Tests: $TOTAL_TESTS"
+        echo "Passed Tests: $PASSED_TESTS"
+        echo "Failed Tests: $FAILED_TESTS"
