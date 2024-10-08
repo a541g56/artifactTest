@@ -9,6 +9,10 @@ jobs:
     steps:
     - name: Create a text file
       run: echo "Hello, this is a sample artifact." > artifact.txt
+    - name: Run test script
+      working-directory: ./operate/client
+      run: |
+        python pythonTest.py  # 这里假设你有一个名为 simulate_test_results_job.py 的 Python 脚本
 
     - name: Upload artifact
       uses: actions/upload-artifact@v4
