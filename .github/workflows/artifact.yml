@@ -3,14 +3,24 @@ name: Show Test Results in Jobs List
 on: [push]
 
 jobs:
-  test:
+  test1:
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository code
         uses: actions/checkout@v2
 
-      - name: Run tests
-        run: npm test
+      - name: Wait for 5 minutes
+        run: sleep 300
+  test2:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v2
+      - name: Wait for 5 minutes
+        run: sleep 10
 
-      - name: Generate test report
-        run: npm run test:report
+      - name: error
+        run: sleep 0/0
+
+      - name: Wait for 5 minutes
+        run: sleep 300
